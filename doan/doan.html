@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+    img.cangiua {display: block; margin-left: auto; margin-right: auto;}
+    #header
+    {
+        margin:3px 0px;
+        width: 100%;
+        height:300px;
+        border: solid 2px;
+        background-image: url(images/logo2.jpg);
+        background-repeat:no-repeat;
+        background-position: center center;
+        background-size:contain;
+    }
+    .user,.cart{
+        float:right;
+        margin:3px 3px;
+    }
+    #topmenu{
+        margin:3px 0px;
+        float:left;
+        background-color:black;
+        height :50px;
+        border: outset 2px white;
+        width: 100%;
+        position: relative;
+        z-index: 4;
+    }
+    ul, li{
+        margin:3px,3px;
+        padding:3px 3px;
+    }
+    #mothermenu{
+        list-style:cjk-ideographic;
+        margin:0px 0px;
+        background-color:black;
+        border: solid black;
+        height:auto;
+        height:47px;
+        padding: 12px;
+    }
+    .home,.news,.products,.support{
+        list-style-position:inside;
+        display:inline;
+        margin: 0px 0px;
+        padding:10px 10px;
+        font-size:15px;
+        height:100px;
+        border:solid  black;
+        font-size:large;
+    }
+    #topmenu li a{
+      color :white;
+      border:solid black;
+    }
+    .sub-menu{
+        list-style:cjk-ideographic;
+        position: absolute;
+        height :60px;
+        padding: 15px 15px;
+        border: outset whitesmoke;
+        background-color: black;
+        width: auto;
+        border-radius: 20px;
+    }
+    .sub-menu li{
+        padding:0px 10px;
+        display:inline;
+        width: 100%; 
+    }
+    #topmenu .sub-menu{
+        display:none;
+    }
+    #topmenu .products:hover .sub-menu{
+        display:block;
+        margin-top:10px;
+        margin-left:30px;
+    }
+    .sub-menu li a{
+        text-decoration: none;
+    }
+    #topmenu li a:hover{
+        color: yellow;
+        border-bottom:solid yellow;
+        padding:0px;
+    }
+    #search-box{
+        background: white;
+        float:right;
+    }
+    #search-box #search-text{
+        border:none;
+        outline: none;
+        background: none;
+        font-size:17px;
+        width: 0;
+        padding: 0;
+        transition: all 0.5s ease-in-out;
+    }
+    #search-box:hover #search-text, #search-box #search-text:valid{
+        width: 300px;
+        padding: 10px 0px 10px 15px;
+    }
+    #search-box #search-btn{
+        background-color: white;
+        cursor: pointer;
+        border:none;
+        padding: 13px;
+        font-size:17px;
+    }
+    #slider{
+        overflow:hidden;
+        height:600px;
+        border: solid;
+        margin: 3px 0px;
+        width:100%;
+        float:left;
+        position: relative;
+        z-index: 2;
+    }
+    .slide-wrapper {
+    width: 400%;
+    position: relative;
+    z-index:2;
+    }
+    .slide{
+        float:left;
+        width:25%;
+        height:600px;
+        
+    }
+    .prev,.next{
+        cursor:pointer;
+        position:absolute;
+        top:30%;
+        width:auto;
+        margin-top:20px;
+        padding:16px;
+        color:darkgrey;
+        font-weight: bold;
+        font-size: 50px;
+        transition:0.6s ease;
+        border-radius :0 3px 3px 0;
+        user-select: none;
+        z-index: 5;
+    }
+    .next{
+        top:center;
+        right:0px;
+    }
+    .prev{
+        top:center;
+        left:0px;
+    }
+    .prev:hover,.next:hover{
+        background-color:rgba(0,0,0,0.8);
+    }
+    #dot-wrapper{
+        height:10%;
+        bottom:0px;
+        position:absolute;
+        right:0px;
+        left:0px;
+        margin:0px auto;
+        z-index:5;
+    }
+    .dot{
+        cursor:pointer;
+        height:15px;
+        width:15px; 
+        background-color:darkgrey;
+        border-radius:50%;
+        display:inline-block;
+        transition: background-color 0.6s ease;
+        margin:0 2px;
+    }
+    .active,.dot:hover{
+        background-color:#717171;
+    }
+    @keyframes slide 
+    {
+    20% {margin-left: 0%;}
+    30% {margin-left: -100%;}
+    50% {margin-left: -100%;}
+    60% {margin-left: -200%;}
+    80% {margin-left: -200%;}
+    }
+    .slide img{
+        height:100%;
+         width:100%;
+    }
+    .newproduct,.sales{
+        height:auto;
+        width: 100%;
+        display :flex;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: wrap;
+        float:left;
+        margin-top:10px;
+        margin-bottom:20px;
+    }
+    .product{
+        border: solid 1px;
+        height: 350px;
+        width:300px;
+        background-color:white ;
+        border :solid 3px #BC8F8F;
+        margin-right:0px;
+        }
+    .hinhanh{
+        height:280px;
+        position:relative;
+        z-index: 2;
+        float: left;
+        width: 100%;
+    }
+    .indexsale        
+    {
+        padding: 3px;
+        height:30px;
+        width: 50px;
+        z-index:4;
+        float:right;
+        color: red;
+        font-size: large;
+        position: absolute;
+        right:3px;
+        top:3px;
+        border:solid;
+        border-radius: 50%;
+    }
+    .chitiet{
+        height:70px;
+        width:70%;
+        float:left;
+        padding-left: 10px;
+        padding-top:5px;
+        letter-spacing: 1px;
+        font-size:larger;
+        font-weight: bold;
+    }
+
+    .mua{
+        height:50px;
+        width:30%;
+        float :right;
+        padding-top:4px;
+    }
+    
+    .tieude{
+        width: 100%;
+        height: 100px;
+    }
+    .tuade{
+        text-indent: 10px;
+        float:left;
+        width:70%;
+        font-weight: bold;
+        font-size:x-large;
+    }
+    .seemore{
+        float:right;
+        height :30px;
+        width: 29%;
+    }
+    .seemore a{
+        text-decoration: none;    
+        float:right; 
+        padding:5px 10px;
+        color: #333;
+    }
+    body {
+     font-family: sans-serif;
+     color: #333;
+    }
+    #Footer li{
+            display: inline;
+            margin-right: 50px;
+    }
+    #Footer{
+            height:250px; 
+            width:100%; 
+            background-color:black;
+            overflow: hidden;
+    }
+    #left{
+            width:350px;
+            margin-left:15px;
+            margin-top: 15px;
+            float:left;
+            position: absolute;
+    }
+        #right{
+            width:650px;
+            float:right;
+            text-align: center;
+            line-height: 30px;
+        }
+        .pp img{
+            width: 100px;
+            height: 100px;
+            margin-left: 50px;
+        }
+        @media only screen and (max-width:1000px) {
+            #Footer li{
+                display:block;
+            }
+            #Footer{
+                height:auto;
+            }
+            #left{
+                width:40%;
+            }
+            #right{
+                width:60%;
+            }
+            .pp img{
+                width:80px;
+                height:80px;
+                margin-left:20px;
+            }
+            #slider{
+                height:400px;
+            }
+            .slide img{
+            height:400px;
+            width:100%;
+            }
+            .sub-menu li{
+                padding: 10px 10px;
+                display:block;
+                width: 150px;
+                height: auto;       
+                text-align: center; 
+            }
+            .sub-menu{
+                margin:0px 0px;
+                height:100%;
+                width:auto;
+            }
+            #mothermenu{
+                float:left;
+                margin:0px 0px;
+                height:100%;
+                padding: 0px 0px;
+                border:solid black;
+                margin-top: 10px;
+                margin-left:10px;
+
+            }
+            #topmenu .products:hover .sub-menu{
+                margin-left:85px;
+                padding :0px 0px;
+                height:auto;
+                padding-bottom: 0px;
+                margin-top:0px;
+            }
+            .home,.news,.products,.support{
+        list-style-position:inside;
+        display:inline;
+        margin: 0px 0px;
+        padding:10px 0px;
+        font-size:15px;
+        height:100%;
+    }
+            #search-box:hover #search-text, #search-box #search-text:valid{
+                width: 100px;
+                padding: 10px 0px 10px 15px;
+            }
+        }
+    </style>
+    <script language="javascript">
+        var slideIndex = 1;
+        showSlides(slideIndex);
+        function plusSlides(n) {
+        showSlides(slideIndex += n);
+        }
+     function chuyenSlide(n) {
+        showSlides(slideIndex = n);
+        }
+function showSlides(n) {
+   var i;
+   var slides = document.getElementsByClassName("slide");
+   var dots = document.getElementsByClassName("dot");
+   if (n > slides.length) {slideIndex = 1}
+   if (n < 1) {slideIndex = slides.length}
+   for (i = 0; i < slides.length; i++) {
+       slides[i].style.display = "none";
+   }
+   for (i = 0; i < dots.length; i++) {
+       dots[i].className = dots[i].className.replace(" active", "");
+   }
+   slides[slideIndex-1].style.display = "block";
+   dots[slideIndex-1].className += " active";
+ }
+    </script>
+</head>
+<body>
+<div style = "width:100%;margin:0px auto;height: auto;">
+    <div id="header">
+            
+            <div class="user"><a href=#><img src="images/account.svg" height="40px" width="40px"></a></div>
+            <div class="cart"><a href=#><img src="images/bag.svg" height="40px" width="40px" ></a></div>
+    </div>
+    <div id="topmenu">
+        <div style="float:left;height: auto;width:68%">
+        <ul id="mothermenu">
+            <li class="home"><a href ="#" style=" text-decoration: none; ">HOME</a></li>
+            <li class="news"><a href ="#" style=" text-decoration: none;">NEWS</a></li>
+            <li class="products"><a href ="#" style=" text-decoration: none;">PRODUCTS</a>
+                <ul class="sub-menu">
+                    <li><a href="#">RING</a></li>
+                    <li><a href="#">NECKLACE</a></li>
+                    <li><a href="#">EAR RING</a></li>
+                    <li><a href="#">BRACELET</a></li>
+                </ul>
+            </li>
+            <li class="support"><a href=# style="text-decoration: none; position: relative;">SUPPORT</a></li>
+        </ul>
+        </div>
+        <div style="float:right;height:auto;width: auto;">
+            <form action="" id="search-box">
+                <input type="text" id="search-text" placeholder="Bạn muốn tìm gì ?" required>
+                <button id="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+        </div>
+    </div>
+    <div id="slider">
+        <div class="slide-wrapper">
+            <div class="slide"><img src="images/2149791.jpg"></div>
+            <div class="slide"><img src="images/2960491.jpg"></div>
+            <div class="slide"><img src="images/wp3308149.jpg"></div>
+            </div>
+        <a class="prev" onclick="plusSlides(-1)">❮</a>
+        <a class="next" onclick="plusSlides(1)">❯</a>
+        <div id="dot-wrapper" style="text-align:center">
+        <span class="dot" onclick="chuyenSlide(1)"></span>
+        <span class="dot" onclick="chuyenSlide(2)"></span>
+        <span class="dot" onclick="chuyenSlide(3)"></span>
+        </div>
+    </div>
+    <div id="intro" style="margin:3px 0px;float:left;border:solid;width: 100%;">
+        <img src="images/z3819843767701_b2e2ea09634c937db21a12ca5f9546db.jpg" width="100%">
+    </div>
+    
+    <div class="tieude"> 
+       <div class="tuade">NEW PRODUCTS </div>
+        <div class="seemore"><a href="#">See more</a></div> 
+    </div>
+    <div class="newproduct">
+        <div class="product">
+            <div class="hinhanh"><img src="images/304385268_835231607676800_509655912598633799_n.jpg" class="cangiua" width="280px" height="280px"></div>
+            <div class="chitiet">
+            Diamond
+            <br>
+            999.999.9VND
+            </div>
+            <div class="mua"><img src="images/bag.svg" height="50px" width="50px" style="float:right"></div>
+        </div>
+        <div class="product">
+        <div class="hinhanh"><img src="images/z3767722486655_133afd98d9ac10572252c534e0b47325.jpg" class="cangiua" width="280px" height="280px"></div>
+        <div class="chitiet">
+        Diamond
+        <br>
+        999.999.9VND
+        </div>
+        <div class="mua"><img src="images/bag.svg" height="50px" width="50px" style="float:right"></div></div>
+        <div class="product">
+            <div class="hinhanh"><img src="images/z3767721890083_3930e3d9f1c4a575280eaab5086ee70c.jpg" class="cangiua" width="280px" height="280px"></div>
+            <div class="chitiet">
+            Diamond
+            <br>
+            999.999.9VND
+            </div>
+            <div class="mua"><img src="images/bag.svg" height="50px" width="50px" style="float:right"></div>
+        </div>
+        <div class="product">
+            <div class="hinhanh"><img src="images/dia.jpg" class="cangiua" width="280px" height="280px"></div>
+            <div class="chitiet">
+            Diamond
+            <br>
+            999.999.9VND
+            </div>
+            <div class="mua"><img src="images/bag.svg" height="50px" width="50px" style="float:right"></div>
+        </div>
+    </div>
+    <div class="tieude"> 
+        <div class="tuade">SALES </div>
+         <div class="seemore"><a href="#">See more</a></div> 
+     </div>
+    <div class="sales">
+        <div class="product">
+            <div class="hinhanh">
+                <img src="images/304385268_835231607676800_509655912598633799_n.jpg" class="cangiua" width="280px" height="280px">
+            <div class="indexsale">-33%</div>
+            </div>
+            
+            <div class="chitiet">
+            Diamond
+            <br>
+            999.999.9VND
+            </div>
+            <div class="mua"><img src="images/bag.svg" height="50px" width="50px" style="float:right"></div>
+        </div>
+        <div class="product">
+        <div class="hinhanh">
+            <img src="images/z3767722486655_133afd98d9ac10572252c534e0b47325.jpg" class="cangiua" width="280px" height="280px">
+                <div class="indexsale">-33%</div>
+        </div>
+        <div class="chitiet">
+        Diamond
+        <br>
+        999.999.9VND
+        </div>
+        <div class="mua"><img src="images/bag.svg" height="50px" width="50px" style="float:right"></div></div>
+        <div class="product">
+            <div class="hinhanh">
+                <img src="images/z3767721890083_3930e3d9f1c4a575280eaab5086ee70c.jpg" class="cangiua" width="280px" height="280px">
+            <div class="indexsale">-33%</div>
+            </div>
+            <div class="chitiet">
+            Diamond
+            <br>
+            999.999.9VND
+            </div>
+            <div class="mua"><img src="images/bag.svg" height="50px" width="50px" style="float:right"></div>
+        </div>
+        <div class="product">
+            <div class="hinhanh">
+                <img src="images/dia.jpg" class="cangiua" width="280px" height="280px">
+            <div class="indexsale">-33%</div>
+            </div>
+            <div class="chitiet">
+            Diamond
+            <br>
+            999.999.9VND
+            </div>
+            <div class="mua"><img src="images/bag.svg" height="50px" width="50px" style="float:right"></div>
+        </div>
+    </div>
+    <div id="Footer">
+        <div id="left">
+            <font size="4px", face="Verdana"color="white">JEWEL HEARTS<br></font>
+            <font size="3px", face="Verdana"color="white">
+                <p>Địa chỉ: 273 An Dương Vương, Phường 3, Quận 5, TPHCM</p>
+                <p>Email: JewelHearts@gmail.com</p>
+                <p>Num: (+84)986197629</p>
+            </font>
+            <div><a href="https://www.facebook.com/truc.xuan.161/", style="text-decoration: none">
+                <img src="images/facebook-logo-2019.svg", width="50", height="50">
+            </a>
+            <a href="https://www.facebook.com/truc.xuan.161/", style="text-decoration: none">
+                <img src="images/twitter.svg", width="60", height="50", style="margin-left:15px">
+            </a></div>
+        </div>
+            <div id="right">
+                <font size="4px", face="Verdana"color="white">
+                <ul>
+                    <li><a href="#", style="text-decoration: none; color:white">SUPPPORT</a></li>
+                    <li><a href="#", style="text-decoration: none; color:white">CONTACT US</a></li>
+                    <li><a href="#", style="text-decoration: none; color:white">ABOUT JEWEL HEARTS</a></li>
+                </ul></font>
+                <font size="4px", face="Verdana"color="white">PAYMENT METHODS<br></font>
+                <div class="pp", style="margin-right:30px; margin-top:20px"><a href="#", style="text-decoration: none">
+                    <img src="images/google-pay.svg">
+                </a>
+                <a href="#", style="text-decoration: none">
+                    <img src="images/visa.svg">
+                </a>
+                <a href="#", style="text-decoration: none">
+                    <img src="images/paypal (1).svg">
+                </a>
+                <a href="#", style="text-decoration: none">
+                    <img src="images/master-card.svg">
+                </a></div>
+            </div>
+    </div> 
+</div>
+</body>
+</html>
