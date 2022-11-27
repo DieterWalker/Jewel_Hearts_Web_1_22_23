@@ -312,6 +312,17 @@ var products = [
     },
 ]
 
+// Reset input
+function resetInput() {
+    document.getElementById("id").value = ""
+    document.getElementById("name").value = ""
+    // document.getElementById("upload").files[0].name = ""
+    document.getElementById("category").value = ""
+    document.getElementById("brand").value = ""
+    document.getElementById("price").value = ""
+}
+
+
 // Kiểm tra input 
 function validateInput() {
     let formElement = document.querySelector(".themsp")
@@ -343,6 +354,7 @@ function Add() {
         let id = document.getElementById("id").value
         let name = document.getElementById("name").value
         let img = document.getElementById("upload").files[0].name
+        let category = document.getElementById("category").value
         let brand = document.getElementById("brand").value
         let price = document.getElementById("price").value
         // kiem tra trong localStorage co key la list-product hay chua (toan tu 3 ngoi)
@@ -354,6 +366,7 @@ function Add() {
             id: id,
             nameProduct: name,
             image: img,
+            category:category,
             brand: brand,
             price: price
         })
@@ -361,23 +374,25 @@ function Add() {
         //Đẩy dữ liệu vào  localStorage với key = "list-product"
         // JSON.stringify(listProduct) có tác dụng mã hóa
         localStorage.setItem("list-product", JSON.stringify(listProduct))
-        console.log(listProduct)
+        // console.log(listProduct)
         renderProduct()
         resetInput()
     }
+
 }
 
 //Đẩy sản phẩm
 function renderProduct() {
     //Kiểm tra  localStorage
     let listProduct = localStorage.getItem("list-product") ? JSON.parse(localStorage.getItem("list-product")) : []
-
+    
     //Tạo biến để chứa table
     let product = `
         <tr>
             <th>ID</th>
             <th>Name</th>
             <th>Img</th>
+            <th>Category</th>
             <th>Brand</th>
             <th>Price</th>
             <th>Action</th>
@@ -388,6 +403,7 @@ function renderProduct() {
                         <td>${index + 1}</td>
                         <td>${value.nameProduct}</td>
                         <td> <img src="./img/${value.image}" alt=""></td>
+                        <td>${value.category}</td>
                         <td>${value.brand}</td>
                         <td>${value.price} VND</td>
                         <td>
@@ -396,7 +412,8 @@ function renderProduct() {
                         </td>
                     </tr>` 
     })
-    document.getElementById("table-sp").innerHTML = product
+    document.getElementById("table-sp").innerHTML = product;
+    
 }
 renderProduct();
 
@@ -407,19 +424,13 @@ function formthemsp(){
 
 function dongthemsp(){
     document.getElementById("t-themsp").style.display = "none";
+    document.getElementById("save").style.display = "block" // Ẩn nút thêm
+    document.getElementById("update").style.display = "none" // Ẩn nút thêm
+    resetInput()
 }
 
 function mothemsp(){
     document.getElementById("t-themsp").style.display = "block"
-}
-
-// Reset input
-function resetInput() {
-    document.getElementById("id").value = ""
-    document.getElementById("name").value = ""
-    document.getElementById("upload").files[0].name = ""
-    document.getElementById("brand").value = ""
-    document.getElementById("price").value = ""
 }
 
 // Sửa
@@ -431,6 +442,7 @@ function Edit(index) {
     document.getElementById("name").value = listProduct[index].nameProduct
     document.getElementById("id").value = index
     document.getElementById("upload").files[index] = listProduct[index].image
+    document.getElementById("category").value = listProduct[index].category
     document.getElementById("brand").value = listProduct[index].brand
     document.getElementById("price").value = listProduct[index].price
     document.getElementById("receiveindex").value = index
@@ -450,6 +462,7 @@ function changeProduct() {
     listProduct[receiveindex]={
         nameProduct: document.getElementById("name").value,
         image: document.getElementById("upload").files[0].name,
+        category: document.getElementById("category").value,
         brand: document.getElementById("brand").value,
         price: document.getElementById("price").value     
     }
@@ -458,9 +471,9 @@ function changeProduct() {
      localStorage.setItem("list-product",JSON.stringify(listProduct))
      document.getElementById("save").style.display = "inline-block" 
      document.getElementById("update").style.display = "none" 
-     resetInput()
      renderProduct()
-
+     resetInput()
+     
 }
 
 // Xóa
@@ -492,6 +505,46 @@ function Delete(index) {
                 fileReader.readAsDataURL(fileToLoad);
             }
         }
+
+var userArray = [
+    {id:1,name:'Khoa',account:'khoa@gmail.com',sdt:'01214686982',password:'abc123'},
+    {id:2,name:'Khanh',account:'khanh@gmail.com',sdt:'01214686982',password:'abc123'},
+    {id:3,name:'Cong',account:'cong@gmail.com',sdt:'01214686982',password:'abc123'},
+    {id:4,name:'Thinh',account:'thinh@gmail.com',sdt:'01214686982',password:'abc123'},
+    {id:5,name:'Dat',account:'dat@gmail.com',sdt:'01214686982',password:'abc123'},
+]
+localStorage.setItem("userArray", JSON.stringify(userArray))
+
+function userCustomer(){
+
+    let user = `
+        <tr>
+            <th>id</th>
+            <th>Name</th>
+            <th>Account</th>
+            <th>Sdt</th>
+            <th>Password</th>
+            <th>Action</th>
+        </tr>`
+
+    userArray.map((value,index)=>{
+        user += `<tr>
+                            <td>${index + 1}</td>
+                            <td>${value.name}</td>
+                            <td>${value.account}</td>
+                            <td>${value.sdt}</td>
+                            <td>${value.password} </td>
+                        </tr>` 
+    }); 
+    el = document.getElementById("table-qlur")
+    el.innerHTML = user;               
+}
+userCustomer()
+
+
+
+
+
 
 // Hiển thị trang cần sử dụng
 function showcontent() {
@@ -530,11 +583,12 @@ function showcontent() {
                             <input type="file" name="upload" id="upload" class="form-input" onchange="ImagesFileAsURL()">
                             <div class="error-message"></div>
                         </div><br>
-                        <div class="border-img">
-                            <!-- Nơi chứa hình ảnh , hình ảnh sẽ hiện vào trong thẻ div này -->
-                            <div id="displayImg">
-                            </div><br>
+                        <div class="item-themsp">
+                            <p>Category:</p>
+                            <input type="text" id="category" class="form-input" >
+                            <div class="error-message"></div>
                         </div><br>
+                        
                         <div class="item-themsp">
                             <p>Brand :</p>
                             <input type="text" id="brand" class="form-input" >
@@ -594,18 +648,7 @@ function showcontent() {
             document.getElementById("container").innerHTML=`<div class="ql-user">
             <h2>Quản lý khách hàng  </h2>
             <table id="table-qlur" style="border: 1;" cellpadding="10" cellspace="0">
-                <tr>
-                    <th>Name</th>
-                    <th>UserName</th>
-                    <th>Date</th>
-                    <th>Action</th>
-                </tr>
-                <tr>
-                    <td>Tommy Shelby</td>
-                    <td>Tommy_Shelby</td>
-                    <td>10/31/2022</td>
-                    <td>Xóa</td>
-                </tr>
+
             </table>
         </div>`;
 
@@ -626,6 +669,8 @@ function showcontent() {
 }
 
 window.onload = function (){
+    
     showcontent();
-    renderProduct()
+    userCustomer();
+    renderProduct();
 }
