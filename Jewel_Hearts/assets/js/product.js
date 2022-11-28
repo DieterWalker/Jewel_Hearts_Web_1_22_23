@@ -407,15 +407,18 @@ function renderProduct() {
                         <td>${value.brand}</td>
                         <td>${value.price} VND</td>
                         <td>
-                        <input class="action" type="button" name="btn-edit" id="editsp" value="Edit" onClick="Edit(${index})" >
-                        <input class="action" type="button" name="btn-delete" id="deletesp" value="Delete" onClick="Delete(${index})" >
+                        <input class="action" type="button" name="btn-edit" id="editsp" value="Edit" onClick="EditProduct(${index})" >
+                        <input class="action" type="button" name="btn-delete" id="deletesp" value="Delete" onClick="DeleteProduct(${index})" >
                         </td>
                     </tr>` 
     })
-    document.getElementById("table-sp").innerHTML = product;
-    
+    // document.getElementById("table-sp").innerHTML = product;
+    // renderProduct();
+    const tableProduct = document.querySelector("#table-sp");
+    let iProduct = product;
+    tableProduct.innerHTML = iProduct;
+    // console.log(tableProduct);
 }
-renderProduct();
 
 // Hàm tạo ẩn hiện cho form thêm sản phẩm 
 function formthemsp(){
@@ -432,9 +435,15 @@ function dongthemsp(){
 function mothemsp(){
     document.getElementById("t-themsp").style.display = "block"
 }
+function dong_sua_user(){
+    document.getElementById("form-user").style.display = "none"
+}
 
+function mo_sua_user(){
+    document.getElementById("form-user").style.display = "block"
+}
 // Sửa
-function Edit(index) {
+function EditProduct(index) {
     let listProduct = localStorage.getItem("list-product") ? JSON.parse(localStorage.getItem("list-product")) : []
     mothemsp();
     // console.log(index)
@@ -477,7 +486,7 @@ function changeProduct() {
 }
 
 // Xóa
-function Delete(index) {
+function DeleteProduct(index) {
     // console.log(index)
     let listProduct = localStorage.getItem("list-product") ? JSON.parse(localStorage.getItem("list-product")) : []
     let choice = confirm("Bạn có chắc chắn muốn xóa ?")
@@ -506,46 +515,136 @@ function Delete(index) {
             }
         }
 
-var userArray = [
-    {id:1,name:'Khoa',account:'khoa@gmail.com',sdt:'01214686982',password:'abc123'},
-    {id:2,name:'Khanh',account:'khanh@gmail.com',sdt:'01214686982',password:'abc123'},
-    {id:3,name:'Cong',account:'cong@gmail.com',sdt:'01214686982',password:'abc123'},
-    {id:4,name:'Thinh',account:'thinh@gmail.com',sdt:'01214686982',password:'abc123'},
-    {id:5,name:'Dat',account:'dat@gmail.com',sdt:'01214686982',password:'abc123'},
-]
-localStorage.setItem("userArray", JSON.stringify(userArray))
+// var userArray = [
+//     {id:1,name:'Khoa',gmail:'khoa@gmail.com',phone:'01214686982',password:'abc123'},
+//     {id:2,name:'Khanh',gmail:'khanh@gmail.com',phone:'01214686982',password:'abc123'},
+//     {id:3,name:'Cong',gmail:'cong@gmail.com',phone:'01214686982',password:'abc123'},
+//     {id:4,name:'Thinh',gmail:'thinh@gmail.com',phone:'01214686982',password:'abc123'},
+//     {id:5,name:'Dat',gmail:'dat@gmail.com',phone:'01214686982',password:'abc123'},
+// ]
+// localStorage.setItem("userArray", JSON.stringify(userArray))
 
 function userCustomer(){
-
+    listUser = localStorage.getItem("userArray") ? JSON.parse(localStorage.getItem("userArray")) : []
     let user = `
         <tr>
             <th>id</th>
             <th>Name</th>
-            <th>Account</th>
+            <th>Gmail</th>
             <th>Sdt</th>
             <th>Password</th>
             <th>Action</th>
         </tr>`
 
-    userArray.map((value,index)=>{
+    listUser.map((value,index)=>{
         user += `<tr>
                             <td>${index + 1}</td>
                             <td>${value.name}</td>
-                            <td>${value.account}</td>
-                            <td>${value.sdt}</td>
+                            <td>${value.gmail}</td>
+                            <td>${value.phone}</td>
                             <td>${value.password} </td>
+                            <td>
+                                <input class="action" type="button" name="btn-edituser" id="editur" value="Edit" onClick="EditUser(${index})" >
+                                <input class="action" type="button" name="btn-deleteuser" id="deleteur" value="Delete" onClick="DeleteUser(${index})" >
+                            </td>
                         </tr>` 
     }); 
-    el = document.getElementById("table-qlur")
-    el.innerHTML = user;               
+    // document.querySelector("table-qlur").innerHTML = user    
+    // userCustomer()       
+    let tableUser = document.querySelector("#table-qlur");
+    // console.log(tableUser);
+    let test = user;
+    // console.log(test);
+    tableUser.innerHTML = test;   
 }
-userCustomer()
 
+function EditUser(index){
+    //kiểm tra localstorage
+    let listUser = localStorage.getItem("userArray") ? JSON.parse(localStorage.getItem("userArray")) : []
+    mo_sua_user()
 
+    //Lấy dữ liệu hiển thị trên form 
+    document.getElementById("id-ur").value = index
+    document.getElementById("name-ur").value = listUser[index].name
+    document.getElementById("gmail").value = listUser[index].gmail
+    document.getElementById("phone").value = listUser[index].phone
+    document.getElementById("password").value = listUser[index].password
+    document.getElementById("userindex").value = index
+}
 
+function changeUser(){
+    let listUser = localStorage.getItem("userArray") ? JSON.parse(localStorage.getItem("userArray")) : []
+    let userIndex = document.getElementById("userindex").value
 
+    //Cập nhật dữ liệu 
+    listUser[userIndex]={
+        name:document.getElementById("name-ur").value,
+        gmail:document.getElementById("gmail").value,
+        phone:document.getElementById("phone").value,
+        password:document.getElementById("password").value
+    }
+    //Đẩy dữ liệu vào localStorage
+    localStorage.setItem("userArray",JSON.stringify(listUser));
+    userCustomer()
+}
 
+function DeleteUser(index){
+    // console.log(index);
+    listUser = localStorage.getItem("userArray") ? JSON.parse(localStorage.getItem("userArray")) : []
+    let choice = confirm("Bạn có chắc chắn muốn xóa?")
+    if (choice == true){
+        listUser.splice(index,1)
+        localStorage.setItem("userArray",JSON.stringify(listUser))
+        userCustomer()
+    }else{
+        alert("Bạn hủy xóa!")
+    }
+}
 
+var invoiceArray = [
+    {id:1,idInvoice:84132,idCustomer:1,name:'Khoa',gmail:'khoa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19'},
+    {id:2,idInvoice:84132,idCustomer:2,name:'Thinh',gmail:'k@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19'},
+    {id:3,idInvoice:84132,idCustomer:3,name:'Cong',gmail:'ioa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19'},
+    {id:4,idInvoice:84132,idCustomer:4,name:'Dat',gmail:'koaad@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19'}
+]
+
+localStorage.setItem("invoice-Array", JSON.stringify(invoiceArray))
+
+function invoiceCustomer(){
+
+    let invoice = `
+        <tr>
+            <th>id</th>
+            <th>idInvoice</th>
+            <th>idCustomer</th>
+            <th>Name</th>
+            <th>Gmail</th>
+            <th>Sdt</th>
+            <th>Address</th>
+            <th>Date</th>
+            <th>Action</th>
+        </tr>`
+
+        invoiceArray.map((value,index)=>{
+        invoice += `<tr>
+                            <td>${index + 1}</td>
+                            <td>${value.idInvoice}</td>
+                            <td>${value.idCustomer}</td>
+                            <td>${value.name}</td>
+                            <td>${value.gmail}</td>
+                            <td>${value.sdt}</td>
+                            <td>${value.address}</td>
+                            <td>${value.ngaydat}</td>
+                        </tr>` 
+    }); 
+    // document.querySelector("table-qlur").innerHTML = user    
+    // userCustomer()       
+    let tableInvoice = document.querySelector("#table-qldh");
+    console.log(tableInvoice);
+    let test = invoice;
+    console.log(test);
+    tableInvoice.innerHTML = test;   
+}
 // Hiển thị trang cần sử dụng
 function showcontent() {
     var url = window.location.href;
@@ -555,8 +654,12 @@ function showcontent() {
     {
         case "sp":
         {
-            document.getElementById("container").innerHTML=`<div id="left-menu">
+            document.getElementById("container").innerHTML=`
             <div id="t-themsp">
+                <div class="themsp-container">
+                
+                <!-- Form thêm sản phẩm  -->
+                <div class="form-themsp">
                 <!-- Tiêu đề form thêm sản phẩm  -->
                 <div class="header-tsp" style="position: relative;">
                     <h2>Thêm sản phẩm</h2>
@@ -565,8 +668,6 @@ function showcontent() {
                     </a>
                 </div>
                 <hr>
-                <!-- Form thêm sản phẩm  -->
-                <div class="form-themsp">
                     <form action="" class="themsp">
                         <div class="item-themsp">
                             <p>ID :</p>
@@ -609,7 +710,9 @@ function showcontent() {
                             <input id="update" style="display: none;" type="button" onclick="changeProduct(this)" value="Sửa" >
                         </div>
                     </form>
-                </div>                    
+                </div>
+                </div>
+                                    
             </div>
             <!-- Tiêu đề trang quản lý sản phẩm  -->
             <h2>Danh sách sản phẩm</h2><br>
@@ -620,38 +723,78 @@ function showcontent() {
             <!-- Bảng chứa danh sách sản phẩm  -->
             <table id="table-sp" style="border: 1;" cellpadding="10" cellspace="0">
             </table>`;
-            break;     
+            renderProduct();   
+            break;  
         }
         case "dh":
         {
             document.getElementById("container").innerHTML=`<div class="ql-donhang">
             <h2>Quản lý đơn hàng</h2>
             <table id="table-qldh" style="border: 1;" cellpadding="10" cellspace="0">
-                <tr>
-                    <th>Date</th>
-                    <th>Customer</th>
-                    <th>Total Order</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>10/31/2022</td>
-                    <td>Tommy Shelby</td>
-                    <td>1000000000</td>
-                    <td>Xu ly</td>
-                </tr>
             </table>
         </div>`;
+            invoiceCustomer()
             break;     
         }
         case "usr":
         {
             document.getElementById("container").innerHTML=`<div class="ql-user">
-            <h2>Quản lý khách hàng  </h2>
+                    
+                    
+            <div id="form-user">
+                    
+                    <div class="qly-user">
+                    <!-- Tiêu đề form quản lý khách hàng  -->
+                    <div class="form-user-header" style="position: relative;">
+                        <h2>Sửa thông tin khách hàng</h2>
+                        <a class="" onclick="dong_sua_user()" style="position:absolute; right: 10px; top: 5px; font-size: 20px; cursor: pointer;" value="themsanpham">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                    <form action="" >
+                        <div class="item-user">
+                            <p>ID :</p>
+                            <input type="text" id="id-ur" class="form-ur-input" >
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-user">
+                            <p>Name :</p>
+                            <input type="text" id="name-ur" class="form-ur-input" > 
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-user">
+                            <p>Gmail :</p>
+                            <input type="text" id="gmail" class="form-ur-input" >
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-user">
+                            <p>Phone :</p>
+                            <input type="text" id="phone" class="form-ur-input" >
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-user">
+                            <p>Password:</p>
+                            <input type="text" id="password" class="form-ur-input" >
+                            <div class="error-message"></div>
+                        </div><br> 
+                        <!-- Form ẩn để hứng id truyền lên form chính -->
+                        <div class="user-receive-index">
+                            <input type="hidden" id="userindex" >
+                        </div><br> 
+                        <!-- Button của form quản lý khách hàng  -->
+                        <div class="qlur-btn" style="position: relative;">
+                            <input id="up-user"  type="button" onclick="changeUser(this)" value="Sửa" >
+                        </div>
+                    </form>
+                    </div>
+                    
+                </div> 
+                <h2>Quản lý khách hàng </h2>
+
             <table id="table-qlur" style="border: 1;" cellpadding="10" cellspace="0">
-
             </table>
-        </div>`;
-
+            </div>`;
+            userCustomer()  
             break;     
         }
         case "tk":
@@ -668,9 +811,9 @@ function showcontent() {
 
 }
 
-window.onload = function (){
-    
-    showcontent();
-    userCustomer();
-    renderProduct();
-}
+showcontent()
+// window.onload = function (){  
+//     showcontent();
+//     renderProduct();
+//     userCustomer()
+// }
