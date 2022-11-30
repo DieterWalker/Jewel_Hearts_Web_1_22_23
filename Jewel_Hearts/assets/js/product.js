@@ -407,8 +407,8 @@ function renderProduct() {
                         <td>${value.brand}</td>
                         <td>${value.price} VND</td>
                         <td>
-                        <input class="action" type="button" name="btn-edit" id="editsp" value="Edit" onClick="EditProduct(${index})" >
-                        <input class="action" type="button" name="btn-delete" id="deletesp" value="Delete" onClick="DeleteProduct(${index})" >
+                        <input class="action" type="button" name="btn-edit" id="editsp" value="✏" onClick="EditProduct(${index})" >
+                        <input class="action" type="button" name="btn-delete" id="deletesp" value="🗑" onClick="DeleteProduct(${index})" >
                         </td>
                     </tr>` 
     })
@@ -441,6 +441,13 @@ function dong_sua_user(){
 
 function mo_sua_user(){
     document.getElementById("form-user").style.display = "block"
+}
+
+function dong_invoice(){
+    document.getElementById("form-invoice").style.display = "none"
+}
+function mo_invoice(){
+    document.getElementById("form-invoice").style.display = "block"
 }
 // Sửa
 function EditProduct(index) {
@@ -516,11 +523,11 @@ function DeleteProduct(index) {
         }
 
 // var userArray = [
-//     {id:1,name:'Khoa',gmail:'khoa@gmail.com',phone:'01214686982',password:'abc123'},
-//     {id:2,name:'Khanh',gmail:'khanh@gmail.com',phone:'01214686982',password:'abc123'},
-//     {id:3,name:'Cong',gmail:'cong@gmail.com',phone:'01214686982',password:'abc123'},
-//     {id:4,name:'Thinh',gmail:'thinh@gmail.com',phone:'01214686982',password:'abc123'},
-//     {id:5,name:'Dat',gmail:'dat@gmail.com',phone:'01214686982',password:'abc123'},
+//     {id:1,username:'Khoa',gmail:'khoa@gmail.com',phone:'01214686982',password:'abc123'},
+//     {id:2,username:'Khanh',gmail:'khanh@gmail.com',phone:'01214686982',password:'abc123'},
+//     {id:3,username:'Cong',gmail:'cong@gmail.com',phone:'01214686982',password:'abc123'},
+//     {id:4,username:'Thinh',gmail:'thinh@gmail.com',phone:'01214686982',password:'abc123'},
+//     {id:5,username:'Dat',gmail:'dat@gmail.com',phone:'01214686982',password:'abc123'},
 // ]
 // localStorage.setItem("userArray", JSON.stringify(userArray))
 
@@ -529,7 +536,7 @@ function userCustomer(){
     let user = `
         <tr>
             <th>id</th>
-            <th>Name</th>
+            <th>Username</th>
             <th>Gmail</th>
             <th>Sdt</th>
             <th>Password</th>
@@ -539,13 +546,13 @@ function userCustomer(){
     listUser.map((value,index)=>{
         user += `<tr>
                             <td>${index + 1}</td>
-                            <td>${value.name}</td>
+                            <td>${value.username}</td>
                             <td>${value.gmail}</td>
                             <td>${value.phone}</td>
                             <td>${value.password} </td>
                             <td>
-                                <input class="action" type="button" name="btn-edituser" id="editur" value="Edit" onClick="EditUser(${index})" >
-                                <input class="action" type="button" name="btn-deleteuser" id="deleteur" value="Delete" onClick="DeleteUser(${index})" >
+                                <input class="action" type="button" name="btn-edituser" id="editur" value="✏" onClick="EditUser(${index})" >
+                                <input class="action" type="button" name="btn-deleteuser" id="deleteur" value="🗑" onClick="DeleteUser(${index})" >
                             </td>
                         </tr>` 
     }); 
@@ -565,7 +572,7 @@ function EditUser(index){
 
     //Lấy dữ liệu hiển thị trên form 
     document.getElementById("id-ur").value = index
-    document.getElementById("name-ur").value = listUser[index].name
+    document.getElementById("name-ur").value = listUser[index].username
     document.getElementById("gmail").value = listUser[index].gmail
     document.getElementById("phone").value = listUser[index].phone
     document.getElementById("password").value = listUser[index].password
@@ -578,7 +585,7 @@ function changeUser(){
 
     //Cập nhật dữ liệu 
     listUser[userIndex]={
-        name:document.getElementById("name-ur").value,
+        username:document.getElementById("name-ur").value,
         gmail:document.getElementById("gmail").value,
         phone:document.getElementById("phone").value,
         password:document.getElementById("password").value
@@ -601,50 +608,103 @@ function DeleteUser(index){
     }
 }
 
-var invoiceArray = [
-    {id:1,idInvoice:84132,idCustomer:1,name:'Khoa',gmail:'khoa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19'},
-    {id:2,idInvoice:84132,idCustomer:2,name:'Thinh',gmail:'k@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19'},
-    {id:3,idInvoice:84132,idCustomer:3,name:'Cong',gmail:'ioa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19'},
-    {id:4,idInvoice:84132,idCustomer:4,name:'Dat',gmail:'koaad@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19'}
-]
+// var invoiceArray = [
+//     {id:1,idInvoice:84132,idCustomer:1,nameCustomer:'Khoa',tongtien:'2500000',gmail:'khoa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly'},
+//     {id:2,idInvoice:84142,idCustomer:2,nameCustomer:'Thinh',tongtien:'3000000',gmail:'k@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly'},
+//     {id:3,idInvoice:84152,idCustomer:3,nameCustomer:'Cong',tongtien:'8000000',gmail:'ioa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly'},
+//     {id:4,idInvoice:84162,idCustomer:4,nameCustomer:'Dat',tongtien:'10000000',gmail:'koaad@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly'}
+// ]
 
-localStorage.setItem("invoice-Array", JSON.stringify(invoiceArray))
+// localStorage.setItem("invoice-Array", JSON.stringify(invoiceArray))
 
 function invoiceCustomer(){
-
+    listinvoice = localStorage.getItem("invoice-Array") ? JSON.parse(localStorage.getItem("invoice-Array")) : []
     let invoice = `
         <tr>
-            <th>id</th>
+            <th>ID</th>
             <th>idInvoice</th>
             <th>idCustomer</th>
             <th>Name</th>
-            <th>Gmail</th>
-            <th>Sdt</th>
-            <th>Address</th>
             <th>Date</th>
+            <th>Total Price</th>
+            <th>Status</th>
             <th>Action</th>
         </tr>`
 
-        invoiceArray.map((value,index)=>{
+        listinvoice.map((value,index)=>{
         invoice += `<tr>
                             <td>${index + 1}</td>
                             <td>${value.idInvoice}</td>
                             <td>${value.idCustomer}</td>
-                            <td>${value.name}</td>
-                            <td>${value.gmail}</td>
-                            <td>${value.sdt}</td>
-                            <td>${value.address}</td>
+                            <td>${value.nameCustomer}</td>
                             <td>${value.ngaydat}</td>
+                            <td>${value.tongtien} VND</td>
+                            <td>${value.status}</td>
+                            <td>
+                                <input class="action" type="button" name="btn-detail" id="detailinvoice" value="🔼" onClick="detailInvoice(${index})" >
+                            </td>
                         </tr>` 
     }); 
     // document.querySelector("table-qlur").innerHTML = user    
     // userCustomer()       
     let tableInvoice = document.querySelector("#table-qldh");
-    console.log(tableInvoice);
+    // console.log(tableInvoice);
     let test = invoice;
-    console.log(test);
+    // console.log(test);
     tableInvoice.innerHTML = test;   
 }
+
+function detailInvoice(index){
+    // Kiểm tra localStorage
+    // console.log(index);
+    listinvoice = localStorage.getItem("invoice-Array")?JSON.parse(localStorage.getItem("invoice-Array")) : []
+    mo_invoice()
+    
+    // Lấy dữ liệu trên form
+    document.getElementById("id-invoice").value = listinvoice[index].idInvoice
+    document.getElementById("id-customer").value = listinvoice[index].idCustomer
+    document.getElementById("name-customer").value = listinvoice[index].nameCustomer
+    document.getElementById("date-invoice").value = listinvoice[index].ngaydat
+    document.getElementById("price").value = listinvoice[index].tongtien
+    document.getElementById("address").value = listinvoice[index].address
+    document.getElementById("gmail").value = listinvoice[index].gmail
+    document.getElementById("sdt").value = listinvoice[index].sdt
+    document.getElementById("select-status").value = listinvoice[index].status
+    document.getElementById("invoiceindex").value = index
+
+}
+
+function changeInvoice(){
+    listinvoice = localStorage.getItem("invoice-Array")?JSON.parse(localStorage.getItem("invoice-Array")) : []
+    invoiceIndex = document.getElementById("invoiceindex").value
+
+    //Cập nhật dữ liệu
+    listinvoice[invoiceIndex]={
+        idInvoice:document.getElementById("id-invoice").value,
+        idCustomer:document.getElementById("id-customer").value,
+        nameCustomer:document.getElementById("name-customer").value,
+        ngaydat:document.getElementById("date-invoice").value,
+        tongtien:document.getElementById("price").value,
+        address:document.getElementById("address").value,
+        gmail:document.getElementById("gmail").value,
+        sdt:document.getElementById("sdt").value,
+        status:document.getElementById("select-status").value
+    }
+
+    //Đẩy dữ liệu lên localStorage 
+    localStorage.setItem("invoice-Array",JSON.stringify(listinvoice));
+    invoiceCustomer()
+}
+
+//Thống kê
+// function statictical(){
+//     listUser = localStorage.getItem("userArray") ? JSON.parse( localStorage.getItem("userArray")) : []
+//     countUser = listUser.filter(item =>{
+//         return item.username
+//     })
+
+//     count += ` <th>Tổng tiền</th>`
+// }
 // Hiển thị trang cần sử dụng
 function showcontent() {
     var url = window.location.href;
@@ -729,10 +789,80 @@ function showcontent() {
         case "dh":
         {
             document.getElementById("container").innerHTML=`<div class="ql-donhang">
-            <h2>Quản lý đơn hàng</h2>
+            <div id="form-invoice">       
+                    <div class="qly-invoice">
+                    <!-- Tiêu đề form quản lý hóa đơn   -->
+                    <div class="form-invoice-header" style="position: relative;">
+                        <h2>Chi tiết đơn hàng  </h2>
+                        <a class="" onclick="dong_invoice()" style="position:absolute; right: 10px; top: 5px; font-size: 20px; cursor: pointer;" value="themsanpham">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    </div>
+                    <form action="" >
+                        <div class="item-invoice">
+                            <p>ID Invoice:</p>
+                            <input type="text" id="id-invoice" class="form-detail-invoice" readonly>
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-invoice">
+                            <p>ID Customer:</p>
+                            <input type="text" id="id-customer" class="form-detail-invoice" readonly>
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-invoice">
+                            <p>Name:</p>
+                            <input type="text" id="name-customer" class="form-detail-invoice" readonly>
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-invoice">
+                            <p>Ngày  :</p>
+                            <input type="text" id="date-invoice" class="form-detail-invoice" readonly> 
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-invoice">
+                            <p>Địa chỉ:</p>
+                            <input type="text" id="address" class="form-detail-invoice" readonly>
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-invoice">
+                            <p>Gmail:</p>
+                            <input type="text" id="gmail" class="form-detail-invoice" readonly>
+                            <div class="error-message"></div>
+                        </div><br>
+                        <div class="item-invoice">
+                            <p>SDT:</p>
+                            <input type="text" id="sdt" class="form-detail-invoice" readonly>
+                            <div class="error-message"></div>
+                        </div><br> 
+                        <div class="item-invoice">
+                            <p>ToTal Price:</p>
+                            <input type="text" id="price" class="form-detail-invoice" readonly>
+                            <div class="error-message"></div>
+                        </div><br> 
+                        <div class="item-invoice">
+                            <p>Trạng thái:</p>
+                            <select name="select" id="select-status" >
+                                <option selected value="Chưa xử lý">Chưa xử lý</option>
+                                <option value="Đã xữ lý">Đã xữ lý</option>
+                            </select>
+                        </div><br>
+                        <!-- Form ẩn để hứng id truyền lên form chính -->
+                        <div class="invoice-receive-index">
+                            <input type="hidden" id="invoiceindex" >
+                        </div><br> 
+                        <!-- Button của form quản lý đơn hàng  -->
+                        <div class="qlinvoice-btn" style="position: relative;">
+                            <input id="up-invoice"  type="button" onclick="changeInvoice(this)" value="Cập nhật" >
+                        </div>
+                    </form>
+                    </div>
+             </div>
+        <div class="menu-dh">
+            
+        </div>
+        <h2>Quản lý đơn hàng</h2>
             <table id="table-qldh" style="border: 1;" cellpadding="10" cellspace="0">
-            </table>
-        </div>`;
+            </table>`;
             invoiceCustomer()
             break;     
         }
@@ -741,8 +871,7 @@ function showcontent() {
             document.getElementById("container").innerHTML=`<div class="ql-user">
                     
                     
-            <div id="form-user">
-                    
+            <div id="form-user">       
                     <div class="qly-user">
                     <!-- Tiêu đề form quản lý khách hàng  -->
                     <div class="form-user-header" style="position: relative;">
@@ -758,7 +887,7 @@ function showcontent() {
                             <div class="error-message"></div>
                         </div><br>
                         <div class="item-user">
-                            <p>Name :</p>
+                            <p>Username:</p>
                             <input type="text" id="name-ur" class="form-ur-input" > 
                             <div class="error-message"></div>
                         </div><br>
@@ -778,7 +907,7 @@ function showcontent() {
                             <div class="error-message"></div>
                         </div><br> 
                         <!-- Form ẩn để hứng id truyền lên form chính -->
-                        <div class="user-receive-index">
+                        <div class="invoice-receive-index">
                             <input type="hidden" id="userindex" >
                         </div><br> 
                         <!-- Button của form quản lý khách hàng  -->
@@ -799,7 +928,14 @@ function showcontent() {
         }
         case "tk":
         {
-            document.getElementById("container").innerHTML="<div><p>Thống kê</p><div>";
+            document.getElementById("container").innerHTML=`<div div class="menu-tk">
+            </div>
+            <div class="qly-tk">
+                <h2>Thống kê</h2>
+                <table id="table-tk" style="border: 1;" cellpadding="10" cellspace="0">
+                </table>
+            </div>
+            `;
             break;     
         }
         default:
