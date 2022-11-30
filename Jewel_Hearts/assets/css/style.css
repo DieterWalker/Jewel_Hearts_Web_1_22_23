@@ -196,6 +196,9 @@ tbody {
     height: 20px;
 }
 .form-themsp{
+    position: relative;
+    left: 540px;
+    top: 100px;
     background: white;
     width: 400px;
     height: 500px;
@@ -204,14 +207,6 @@ tbody {
 #t-themsp {
     /* display: none; */
     /* position: fixed;
-    background: white;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 500px;
-    z-index: 1;
-    border-radius: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.05); */
     position: fixed;
     background: rgba(0, 0, 0, 0.4);
@@ -219,9 +214,11 @@ tbody {
     bottom: 0;
     left: 0;
     right: 0;
-    display: flex;
+    display: none;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
+    
 }
 /* .themsp-container {
     background: white;
@@ -363,11 +360,15 @@ tbody {
     bottom: 0;
     left: 0;
     right: 0;
-    display: flex;
+    display: none;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
 }
 .qly-user {
+    position: relative;
+    left: 540px;
+    top: 100px;
     background: white;
     width: 400px;
     height: 500px;
@@ -432,13 +433,17 @@ tbody {
     bottom: 0;
     left: 0;
     right: 0;
-    display: flex;
+    display: none;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
 }
 .qly-invoice {
+    position: relative;
+    left: 210px;
+    top: 20px;
     background: white;
-    width: 400px;
+    width: 70%;
     height: 700px;
     border-radius: 5px;
 }
@@ -452,20 +457,28 @@ tbody {
     margin-bottom: 20px;
     border-radius: 5px;
 }
-
+#form-detail{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+}
 .item-invoice {
     height: 40px;
+    display: flex;
+    flex-direction: row;
 }
 
 .item-invoice > p {
-    float: left;
+    /* float: left; */
     width: 80px;
     height: 50px;
-    margin-left: 25px;
+    margin-left: 105px; 
 }
 
 .item-invoice > input[type="text"] {
-    float: right;
+    /* float: right; */
     width: 250px;
     height: 30px;
     margin-right: 40px;
@@ -473,7 +486,7 @@ tbody {
 }
 
 .item-invoice > input[type="date"] {
-    float: right;
+    /* float: right; */
     width: 250px;
     height: 30px;
     margin-right: 40px;
@@ -481,7 +494,7 @@ tbody {
 }
 
 .item-invoice > select {
-    float: right;
+    /* float: right; */
     width: 250px;
     height: 30px;
     margin-right: 40px;
@@ -494,6 +507,9 @@ tbody {
     margin-left: 130px;
 }
 
+.container-detail{
+    
+}
 /* menu đơn hàng */
 .menu-dh {
     width: 100%;

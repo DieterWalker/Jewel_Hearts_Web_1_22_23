@@ -608,14 +608,111 @@ function DeleteUser(index){
     }
 }
 
-// var invoiceArray = [
-//     {id:1,idInvoice:84132,idCustomer:1,nameCustomer:'Khoa',tongtien:'2500000',gmail:'khoa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly'},
-//     {id:2,idInvoice:84142,idCustomer:2,nameCustomer:'Thinh',tongtien:'3000000',gmail:'k@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly'},
-//     {id:3,idInvoice:84152,idCustomer:3,nameCustomer:'Cong',tongtien:'8000000',gmail:'ioa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly'},
-//     {id:4,idInvoice:84162,idCustomer:4,nameCustomer:'Dat',tongtien:'10000000',gmail:'koaad@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly'}
-// ]
-
-// localStorage.setItem("invoice-Array", JSON.stringify(invoiceArray))
+var invoiceArray = [
+    {id:1,idInvoice:84132,idCustomer:1,nameCustomer:'Khoa',tongtien:'2500000',gmail:'khoa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly',
+    giohang:[
+        {
+            nameProduct: "Balenciaga Gold Loop Heart Earrings",
+            id: 1,
+            price: 1500000,
+            description: "description",
+            category: "Earring",
+            brand: "Harry Winston",
+            image: "Earring_01.jpg",
+        },
+        {
+            nameProduct: "Blue Drop Earrings",
+            id: 2,
+            price: 2400000,
+            description: "description",
+            category: "Earring",
+            brand: "THAYA",
+            image: "Earring_02.jpg ",
+        }
+    ]},
+    {id:2,idInvoice:84142,idCustomer:2,nameCustomer:'Thinh',tongtien:'3000000',gmail:'k@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly',
+    giohang:[
+        {
+            nameProduct: "Balenciaga Gold Loop Heart Earrings",
+            id: 1,
+            price: 1500000,
+            description: "description",
+            category: "Earring",
+            brand: "Harry Winston",
+            image: "Earring_01.jpg",
+        },
+        {
+            nameProduct: "Blue Drop Earrings",
+            id: 2,
+            price: 2400000,
+            description: "description",
+            category: "Earring",
+            brand: "THAYA",
+            image: "Earring_02.jpg ",
+        }
+    ]},
+    {id:3,idInvoice:84152,idCustomer:3,nameCustomer:'Cong',tongtien:'8000000',gmail:'ioa@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'Đã xử lý'
+    ,giohang:[
+        {
+            nameProduct: "Balenciaga Gold Loop Heart Earrings",
+            id: 1,
+            price: 1500000,
+            description: "description",
+            category: "Earring",
+            brand: "Harry Winston",
+            image: "Earring_01.jpg",
+        },
+        {
+            nameProduct: "Blue Drop Earrings",
+            id: 2,
+            price: 2400000,
+            description: "description",
+            category: "Earring",
+            brand: "THAYA",
+            image: "Earring_02.jpg ",
+        },
+        {
+            nameProduct: "Gold Charm Bracelet",
+            id: 32,
+            price: 1700000,
+            description: "description",
+            category: "Bracelet",
+            brand: "Tiffany & Co",
+            image: "Bracelet_07.png",
+        },
+        {
+            nameProduct: "Crystal Lady Charm Bracelet",
+            id: 33,
+            price: 1650000,
+            description: "description",
+            category: "Bracelet",
+            brand: "THAYA",
+            image: "Bracelet_08.jpg",
+        }
+    ]},
+    {id:4,idInvoice:84162,idCustomer:4,nameCustomer:'Dat',tongtien:'10000000',gmail:'koaad@gmail.com',sdt:'01214686982',address:'vietnam',ngaydat:'2022-11-19',status:'chua xu ly'
+    ,giohang:[
+        {
+            nameProduct: "Balenciaga Gold Loop Heart Earrings",
+            id: 1,
+            price: 1500000,
+            description: "description",
+            category: "Earring",
+            brand: "Harry Winston",
+            image: "Earring_01.jpg",
+        },
+        {
+            nameProduct: "Blue Drop Earrings",
+            id: 2,
+            price: 2400000,
+            description: "description",
+            category: "Earring",
+            brand: "THAYA",
+            image: "Earring_02.jpg ",
+        }
+    ]}
+]
+//localStorage.setItem("invoice-Array", JSON.stringify(invoiceArray))
 
 function invoiceCustomer(){
     listinvoice = localStorage.getItem("invoice-Array") ? JSON.parse(localStorage.getItem("invoice-Array")) : []
@@ -672,6 +769,31 @@ function detailInvoice(index){
     document.getElementById("select-status").value = listinvoice[index].status
     document.getElementById("invoiceindex").value = index
 
+    //Lấy dữ liệu giỏ hàng
+    let cart = `
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Img</th>
+            <th>Category</th>
+            <th>Brand</th>
+            <th>Price</th>
+        </tr>`
+
+    listinvoice[index].giohang.map((value, index) => {
+        cart += `<tr>
+                        <td>${index + 1}</td>
+                        <td>${value.nameProduct}</td>
+                        <td> <img src="./img/${value.image}" alt=""></td>
+                        <td>${value.category}</td>
+                        <td>${value.brand}</td>
+                        <td>${value.price} VND</td>
+                    </tr>` 
+    })
+    // document.getElementById("table-sp").innerHTML = product;
+    // renderProduct();
+    const tableCart = document.querySelector("#table-detail");
+    tableCart.innerHTML = cart;
 }
 
 function changeInvoice(){
@@ -688,23 +810,49 @@ function changeInvoice(){
         address:document.getElementById("address").value,
         gmail:document.getElementById("gmail").value,
         sdt:document.getElementById("sdt").value,
-        status:document.getElementById("select-status").value
+        giohang:listinvoice[invoiceIndex].giohang,
+        status:document.getElementById("select-detail").value
+        
     }
-
+console.log(document.getElementById("select-detail").value);
     //Đẩy dữ liệu lên localStorage 
     localStorage.setItem("invoice-Array",JSON.stringify(listinvoice));
     invoiceCustomer()
 }
 
-//Thống kê
-// function statictical(){
-//     listUser = localStorage.getItem("userArray") ? JSON.parse( localStorage.getItem("userArray")) : []
-//     countUser = listUser.filter(item =>{
-//         return item.username
-//     })
 
-//     count += ` <th>Tổng tiền</th>`
-// }
+
+function statictical(){
+    thongke = localStorage.getItem("invoice-Array") ? JSON.parse( localStorage.getItem("invoice-Array")) : []
+    listProduct = localStorage.getItem("list-product") ? JSON.parse( localStorage.getItem("list-product")) : []
+
+    let nhan = 0
+    let vongtay = 0
+    let daychuyen = 0
+    let bongtai = 0
+
+    thongke.forEach(item => {
+        item.giohang.map((i,index)=>{
+            if(i.category === "Earring"){
+                bongtai += i.price
+            }
+            if(i.category === "Necklace"){
+                daychuyen += i.price
+            }
+            if(i.category === "Bracelet"){
+                vongtay += i.price
+            }
+            if(i.category === "Ring"){
+                nhan += i.price
+            }
+        })
+    });
+
+    console.log(bongtai,daychuyen,vongtay,nhan)
+
+}
+
+statictical()
 // Hiển thị trang cần sử dụng
 function showcontent() {
     var url = window.location.href;
@@ -791,65 +939,60 @@ function showcontent() {
             document.getElementById("container").innerHTML=`<div class="ql-donhang">
             <div id="form-invoice">       
                     <div class="qly-invoice">
-                    <!-- Tiêu đề form quản lý hóa đơn   -->
+                    <!-- Tiêu đề form quản lý đơn hàng    -->
                     <div class="form-invoice-header" style="position: relative;">
-                        <h2>Chi tiết đơn hàng  </h2>
+                        <h2>Chi tiết đơn hàng</h2>
                         <a class="" onclick="dong_invoice()" style="position:absolute; right: 10px; top: 5px; font-size: 20px; cursor: pointer;" value="themsanpham">
                             <i class="fas fa-times"></i>
                         </a>
                     </div>
-                    <form action="" >
+                    <form action="" id="form-detail">
                         <div class="item-invoice">
                             <p>ID Invoice:</p>
                             <input type="text" id="id-invoice" class="form-detail-invoice" readonly>
-                            <div class="error-message"></div>
                         </div><br>
                         <div class="item-invoice">
                             <p>ID Customer:</p>
                             <input type="text" id="id-customer" class="form-detail-invoice" readonly>
-                            <div class="error-message"></div>
                         </div><br>
                         <div class="item-invoice">
                             <p>Name:</p>
                             <input type="text" id="name-customer" class="form-detail-invoice" readonly>
-                            <div class="error-message"></div>
                         </div><br>
                         <div class="item-invoice">
                             <p>Ngày  :</p>
                             <input type="text" id="date-invoice" class="form-detail-invoice" readonly> 
-                            <div class="error-message"></div>
                         </div><br>
                         <div class="item-invoice">
                             <p>Địa chỉ:</p>
                             <input type="text" id="address" class="form-detail-invoice" readonly>
-                            <div class="error-message"></div>
                         </div><br>
                         <div class="item-invoice">
                             <p>Gmail:</p>
                             <input type="text" id="gmail" class="form-detail-invoice" readonly>
-                            <div class="error-message"></div>
                         </div><br>
                         <div class="item-invoice">
                             <p>SDT:</p>
                             <input type="text" id="sdt" class="form-detail-invoice" readonly>
-                            <div class="error-message"></div>
                         </div><br> 
                         <div class="item-invoice">
                             <p>ToTal Price:</p>
                             <input type="text" id="price" class="form-detail-invoice" readonly>
-                            <div class="error-message"></div>
                         </div><br> 
-                        <div class="item-invoice">
+                        <div class="item-invoice" id="select-status">
                             <p>Trạng thái:</p>
-                            <select name="select" id="select-status" >
-                                <option selected value="Chưa xử lý">Chưa xử lý</option>
-                                <option value="Đã xữ lý">Đã xữ lý</option>
+                            <select name="select" id="select-detail">
+                                <option   value="Chưa xử lý">Chưa xử lý</option>
+                                <option  value="Đã xữ lý">Đã xữ lý</option>
                             </select>
                         </div><br>
                         <!-- Form ẩn để hứng id truyền lên form chính -->
                         <div class="invoice-receive-index">
                             <input type="hidden" id="invoiceindex" >
                         </div><br> 
+                        <table id="table-detail" style="border: 1;" cellpadding="10" cellspace="0">
+                        </table>
+                        
                         <!-- Button của form quản lý đơn hàng  -->
                         <div class="qlinvoice-btn" style="position: relative;">
                             <input id="up-invoice"  type="button" onclick="changeInvoice(this)" value="Cập nhật" >
