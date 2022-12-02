@@ -402,7 +402,7 @@ function renderProduct() {
         product += `<tr>
                         <td>${index + 1}</td>
                         <td>${value.nameProduct}</td>
-                        <td> <img src="./img/${value.image}" alt=""></td>
+                        <td> <img class="img-admin" src="./img/${value.image}" alt=""></td>
                         <td>${value.category}</td>
                         <td>${value.brand}</td>
                         <td>${value.price} VND</td>
@@ -784,7 +784,7 @@ function detailInvoice(index){
         cart += `<tr>
                         <td>${index + 1}</td>
                         <td>${value.nameProduct}</td>
-                        <td> <img src="./img/${value.image}" alt=""></td>
+                        <td> <img class="img-admin" src="./img/${value.image}" alt=""></td>
                         <td>${value.category}</td>
                         <td>${value.brand}</td>
                         <td>${value.price} VND</td>
